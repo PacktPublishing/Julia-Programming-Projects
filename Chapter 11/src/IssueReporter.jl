@@ -93,8 +93,8 @@ $(SIGNATURES)
 Creates a new GitHub issue with the title `title` and the content `body` onto the repo corresponding to the registered package called `package_name`.
 """
 function report(package_name::String, title::String, body::String)
-  # GitHub.create_issue(repo_id(package_name), auth = github_auth(), params = Dict(:title => title, body => body)) # <-- commented out so we don't spam real repos
-  GitHub.create_issue("essenciary/julia-by-example-test-repo", auth = github_auth(), params = Dict(:title => title, body => body))
+  # GitHub.create_issue(repo_id(package_name), auth = github_auth(), params = Dict(:title => title, :body => body)) # <-- commented out so we don't spam real repos
+  GitHub.create_issue("essenciary/julia-by-example-test-repo", auth = github_auth(), params = Dict(:title => title, :body => body))
 end
 
 end # module
