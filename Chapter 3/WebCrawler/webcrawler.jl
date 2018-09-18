@@ -5,8 +5,8 @@ const LINKS = String[]
 
 function fetch_page(url)
   response = HTTP.get(url)
-  if response.status == 200 && parse(response.headers["Content-Length"]) > 0
-    readstring(response.body)
+  if response.status == 200 && parse(Int, Dict(response.headers)["Content-Length"]) > 0
+    String(response.body)
   else
     ""
   end
@@ -17,7 +17,7 @@ function extract_links(elem)
       tag(elem) == :a &&
       in("href", collect(keys(attrs(elem))))
         url = getattr(elem, "href")
-        startswith(url, "/wiki/") && ! contains(url, ":") && push!(LINKS, url)
+        startswith(url, "/wiki/") && ! occursin(":", url) && push!(LINKS, url)
   end
 
   for child in children(elem)
