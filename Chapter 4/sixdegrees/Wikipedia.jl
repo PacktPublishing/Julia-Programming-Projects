@@ -10,44 +10,54 @@ const PROTOCOL = "https://"
 const DOMAIN_NAME = "en.m.wikipedia.org"
 const RANDOM_PAGE_URL = PROTOCOL * DOMAIN_NAME * "/wiki/Special:Random"
 
-export fetch_random, fetch_page, article_info, persisted_article
+export fetchrandom, fetchpage, articleinfo, persistedarticle
 
-function fetch_page(url)
-  url = startswith(url, "/") ? build_url(url) : url
+# function fetchpage(url)
+#   url = startswith(url, "/") ? buildurl(url) : url
+#
+#   response = HTTP.get(url)
+#
+#   if response.status == 200 && length(response.body) > 0
+#     String(response.body)
+#   else
+#     ""
+#   end
+# end
 
+function fetchpage(url)
+  url = startswith(url, "/") ? buildurl(url) : url
   response = HTTP.get(url)
-
-  content = if response.status == 200 && response.body.len > 0
-              readstring(response.body)
-            else 
+  content = if response.status == 200 && length(response.body) > 0
+              String(response.body)
+            else
               ""
             end
-  
-  relative_url = matchall(r"/wiki/(.*)$", (isempty(response.history) ? url : response.history[end].headers["Location"]))[1]
-  
+  relative_url = collect(eachmatch(r"/wiki/(.*)$", (response.request.parent == nothing ? url : Dict(response.request.parent.headers)["Location"])))[1].match
+
   content, relative_url
 end
 
-function extract_links(elem)
-  map(matchall(Selector("a[href^='/wiki/']:not(a[href*=':'])"), elem)) do e
+
+function extractlinks(elem)
+  map(eachmatch(Selector("a[href^='/wiki/']:not(a[href*=':'])"), elem)) do e
     e.attributes["href"]
   end |> unique
 end
 
-function extract_title(elem)
+function extracttitle(elem)
   matchFirst(Selector("#section_0"), elem) |> nodeText
 end
 
-function extract_image(elem)
+function extractimage(elem)
   e = matchFirst(Selector(".content a.image img"), elem)
-  isa(e, Void) ? "" : e.attributes["src"]
+  isa(e, Nothing) ? "" : e.attributes["src"]
 end
 
-function fetch_random()
-  fetch_page(RANDOM_PAGE_URL)
+function fetchrandom()
+  fetchpage(RANDOM_PAGE_URL)
 end
 
-function article_dom(content)
+function articledom(content)
   if ! isempty(content)
     return Gumbo.parsehtml(content)
   end
@@ -55,20 +65,38 @@ function article_dom(content)
   error("Article content can not be parsed into DOM")
 end
 
-function article_info(content)
-  dom = article_dom(content)
-  (content, extract_links(dom.root), extract_title(dom.root), extract_image(dom.root))
+# function articleinfo(content)
+#   dom = articledom(content)
+#
+#   Dict( :content => content,
+#         :links => extractlinks(dom.root),
+#         :title => extracttitle(dom.root),
+#         :image => extractimage(dom.root)
+#   )
+# end
+
+# function articleinfo(content)
+#   dom = articledom(content)
+#   Article(content,
+#           extractlinks(dom.root),
+#           extracttitle(dom.root),
+#           extractimage(dom.root))
+# end
+
+function articleinfo(content)
+  dom = articledom(content)
+  (content, extractlinks(dom.root), extracttitle(dom.root), extractimage(dom.root))
 end
 
-function build_url(article_url)
-  PROTOCOL * DOMAIN_NAME * article_url
-end
-
-function persisted_article(article_content, url)
-  article = Article(article_info(article_content)..., url)
+function persistedarticle(article_content, url)
+  article = Article(articleinfo(article_content)..., url)
   save(article)
 
   article
+end
+
+function buildurl(article_url)
+  PROTOCOL * DOMAIN_NAME * article_url
 end
 
 end

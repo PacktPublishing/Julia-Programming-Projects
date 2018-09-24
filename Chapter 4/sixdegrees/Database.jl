@@ -4,14 +4,14 @@ using MySQL
 
 const HOST = "localhost"
 const USER = "root"
-const PASS = ""
+const PASS = "root"
 const DB = "six_degrees"
 
-const CONN = mysql_connect(HOST, USER, PASS, DB)
+const CONN = MySQL.connect(HOST, USER, PASS, db = DB)
 
 export CONN
 
-disconnect() = mysql_disconnect(CONN)
+disconnect() = MySQL.disconnect(CONN)
 
 atexit(disconnect)
 

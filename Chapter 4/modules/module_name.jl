@@ -1,3 +1,3 @@
-function my_name()
+function myname()
   MY_NAME
 end

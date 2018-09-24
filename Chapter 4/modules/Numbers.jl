@@ -1,15 +1,17 @@
 module Numbers
 
-export half_rand
+using Random
+
+export halfrand
 
 const MY_NAME = "Numbers"
 
 function rand()
-  Base.Random.rand(1:1_000)
+  Random.rand(1:1_000)
 end
 
-function half_rand()
-  floor(rand() / 2) |> Int
+function halfrand()
+  floor(rand() / 2)
 end
 
 include("module_name.jl")

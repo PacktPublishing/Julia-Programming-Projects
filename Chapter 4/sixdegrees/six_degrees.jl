@@ -1,7 +1,14 @@
-push!(LOAD_PATH, ".")
+using Pkg
+pkg"activate ."
 
-using Wikipedia, Gameplay
+include("Database.jl")
+include("Wikipedia.jl")
+include("Gameplay.jl")
 
-for article in new_game(Gameplay.DIFFICULTY_EASY)
+using .Wikipedia, .Gameplay
+
+articles = newgame(Gameplay.DIFFICULTY_EASY)
+
+for article in articles
   println(article.title)
 end
