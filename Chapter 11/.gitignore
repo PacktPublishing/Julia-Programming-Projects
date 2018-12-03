@@ -1,6 +1,0 @@
-*.jl.cov
-*.jl.*.cov
-*.jl.mem
-secrets.jl
-secrets.jl_
-docs/build

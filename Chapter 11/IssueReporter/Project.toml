@@ -1,0 +1,14 @@
+name = "IssueReporter"
+uuid = "7b29c13e-f3eb-11e8-2be5-fb20b77ad364"
+authors = ["Adrian Salceanu <e@essenciary.com>"]
+version = "0.1.0"
+
+[deps]
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+GitHub = "bc5e4493-9b4d-5f90-b8aa-2b2bcaad7a26"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+Traceur = "37b6cedf-1f77-55f8-9503-c64b63398394"
+URIParser = "30578b45-9adc-5946-b283-645ec420af67"
