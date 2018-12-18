@@ -1,0 +1,8 @@
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+OhMyREPL = "5fb14364-9ced-5910-84b2-373655c76a03"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Profile = "9abbd945-dff8-562f-b5e8-e1ebf5ef1b79"
+REPL = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
