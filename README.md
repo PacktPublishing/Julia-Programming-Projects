@@ -1,5 +1,4 @@
 # Julia Programming Projects
-# Julia Programming Projects
 
 <a href="https://www.packtpub.com/big-data-and-business-intelligence/julia-programming-projects?utm_source=github&utm_medium=repository&utm_campaign=9781788292740 "><img src="https://dz13w8afd47il.cloudfront.net/sites/default/files/imagecache/ppv4_main_book_cover/9781788292740%20Copy.png" alt="Julia Programming Projects" height="256px" align="right"></a>
 
